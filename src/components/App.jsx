@@ -1,5 +1,8 @@
+import { number } from 'prop-types';
 import { Component } from 'react';
+import ContactForm from './ContactForm/ContactForm';
 import ContactList from './ContactList';
+import FindContactByName from './FindContactByName';
 
 export class App extends Component {
   state = {
@@ -10,8 +13,8 @@ export class App extends Component {
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
-    name: '',
-    number: '',
+    // name: '',
+    // number: '',
   };
 
   onDelContact = id => {
@@ -19,6 +22,37 @@ export class App extends Component {
       contacts: prevState.contacts.filter(contact => contact.id !== id),
     }));
   };
+  onFilterContact = name => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact =>
+        contact.name.toLowerCase().includes(name.toLowerCase())
+      ),
+    }));
+  };
+  // handleInputChange = event => {
+  //   const { name, value } = event.currentTarget;
+  //   this.setState({
+  //     [name]: value,
+  //   });
+  // };
+  // handleSubmit = event => {
+  //   event.preventDefault();
+  //   console.log('name:', this.state.name);
+  //   console.log('number:', this.state.number);
+  //   // const { name, value } = event.currentTarget;
+  //   // this.setState({
+  //   //   [name]: value,
+  //   // });
+  // };
+  // onAddContact = () => {
+  //   this.setState(prevState => ({
+  //     contacts: prevState.contacts.push({
+  //       id: 'id - 5',
+  //       name: this.state.name,
+  //       number: this.state.number,
+  //     }),
+  //   }));
+  // };
 
   countTotalFeedback = () => {
     const values = Object.values(this.state);
@@ -35,10 +69,13 @@ export class App extends Component {
     return (
       <div>
         <h1>Phonebook</h1>
-        {/* <ContactForm ... /> */}
+        <ContactForm />
 
         <h2>Contacts</h2>
-        {/* <Filter ... /> */}
+        <FindContactByName
+          filter={this.state.filter}
+          onFilterContact={this.handleInputChange}
+        />
         <ContactList
           contacts={this.state.contacts}
           onDelContact={this.onDelContact}
