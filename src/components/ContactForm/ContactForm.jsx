@@ -1,11 +1,14 @@
-import { propTypes } from 'prop-types';
+// import { propTypes } from 'prop-types';
+import shortid from 'shortid';
 import { Component } from 'react';
+
 class ContactForm extends Component {
   state = {
     name: '',
     number: '',
   };
-
+  nameInpuId = shortid.generate();
+  numberInputId = shortid.generate();
   handleInputChange = event => {
     const { name, value } = event.currentTarget;
     this.setState({
@@ -16,35 +19,34 @@ class ContactForm extends Component {
     event.preventDefault();
     console.log('name:', this.state.name);
     console.log('number:', this.state.number);
+    this.props.onSubmit(this.state);
     // const { name, value } = event.currentTarget;
     // this.setState({
     //   [name]: value,
     // });
+    this.reset();
   };
-  onAddContact = () => {
-    this.setState(prevState => ({
-      contacts: prevState.contacts.push({
-        id: 'id - 5',
-        name: this.state.name,
-        number: this.state.number,
-      }),
-    }));
+  reset = () => {
+    this.setState({ name: '', number: '' });
   };
 
   render() {
     return (
       <form onSubmit={event => this.handleSubmit(event)}>
-        <label>
+        <label htmlFor={this.nameInpuId}>
           Name
           <input
             onChange={event => this.handleInputChange(event)}
+            value={this.state.name}
+            id={this.nameInpuId}
             type="text"
             name="name"
+            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
             required
-            value={this.state.name}
           />
         </label>
-        <label>
+        <label htmlFor={this.numberInputId}>
           Number
           <input
             onChange={event => this.handleInputChange(event)}
@@ -54,6 +56,7 @@ class ContactForm extends Component {
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             required
             value={this.state.number}
+            id={this.numberInputId}
           />
         </label>
 

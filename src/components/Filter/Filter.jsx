@@ -1,7 +1,7 @@
 const FindContactByName = ({ filter, onFilterContact }) => {
   return (
-    <div>
-      <h3>Find contacts by name</h3>
+    <label>
+      Find contacts by name
       <input
         type="text"
         name="filter"
@@ -10,7 +10,7 @@ const FindContactByName = ({ filter, onFilterContact }) => {
         }}
         value={filter}
       />
-    </div>
+    </label>
   );
 };
 export default FindContactByName;
