@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
-const Filter = ({ filter, onFilterContact }) => {
+import { FilterInputLabel, FilterInput } from './Filter.Styled';
+const Filter = ({ filter, onFilterContact, FilterWrapper }) => {
   return (
-    <label>
+    <FilterInputLabel>
       Find contacts by name
-      <input
+      <FilterInput
         type="text"
         name="filter"
         onChange={event => {
@@ -11,7 +12,7 @@ const Filter = ({ filter, onFilterContact }) => {
         }}
         value={filter}
       />
-    </label>
+    </FilterInputLabel>
   );
 };
 export default Filter;

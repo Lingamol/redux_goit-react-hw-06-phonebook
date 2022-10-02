@@ -1,17 +1,22 @@
 import PropTypes from 'prop-types';
-import { ListItemText } from './ContactList.sryled';
+import {
+  ListItemText,
+  ListItem,
+  List,
+  ListItemBtn,
+} from './ContactList.sryled';
 
 const ContactList = ({ contacts, onDelContact }) => {
   return (
-    <ul>
+    <List>
       {contacts.map(({ id, name, number }) => (
-        <li key={id}>
+        <ListItem key={id}>
           <ListItemText>{name}</ListItemText>
           <ListItemText>{number}</ListItemText>
-          <button onClick={() => onDelContact(id)}>Delete</button>
-        </li>
+          <ListItemBtn onClick={() => onDelContact(id)}>Delete</ListItemBtn>
+        </ListItem>
       ))}
-    </ul>
+    </List>
   );
 };
 export default ContactList;

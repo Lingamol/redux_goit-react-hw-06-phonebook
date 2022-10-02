@@ -1,6 +1,12 @@
 import PropTypes from 'prop-types';
 import shortid from 'shortid';
 import { Component } from 'react';
+import {
+  FormContact,
+  FormInputLabel,
+  FormInput,
+  FormBtn,
+} from './ContactForm.styled';
 
 class ContactForm extends Component {
   state = {
@@ -28,10 +34,10 @@ class ContactForm extends Component {
 
   render() {
     return (
-      <form onSubmit={event => this.handleSubmit(event)}>
-        <label htmlFor={this.nameInpuId}>
+      <FormContact onSubmit={event => this.handleSubmit(event)}>
+        <FormInputLabel l htmlFor={this.nameInpuId}>
           Name
-          <input
+          <FormInput
             onChange={event => this.handleInputChange(event)}
             value={this.state.name}
             id={this.nameInpuId}
@@ -41,10 +47,10 @@ class ContactForm extends Component {
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
             required
           />
-        </label>
-        <label htmlFor={this.numberInputId}>
+        </FormInputLabel>
+        <FormInputLabel htmlFor={this.numberInputId}>
           Number
-          <input
+          <FormInput
             onChange={event => this.handleInputChange(event)}
             type="tel"
             name="number"
@@ -54,10 +60,9 @@ class ContactForm extends Component {
             value={this.state.number}
             id={this.numberInputId}
           />
-        </label>
-
-        <button type="submit">Add contact</button>
-      </form>
+        </FormInputLabel>
+        <FormBtn type="submit">Add contact</FormBtn>
+      </FormContact>
     );
   }
 }

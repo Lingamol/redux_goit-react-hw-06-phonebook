@@ -4,6 +4,7 @@ import ContactForm from './ContactForm/ContactForm';
 import ContactList from './ContactList';
 import Filter from './Filter';
 import { nanoid } from 'nanoid';
+import { Container, AppTitle, AppContactsListTitle } from './App.styled';
 
 export class App extends Component {
   state = {
@@ -54,11 +55,10 @@ export class App extends Component {
   render() {
     const visibleContacts = this.getVisibleContacts();
     return (
-      <div>
-        <h1>Phonebook</h1>
+      <Container>
+        <AppTitle>Phonebook</AppTitle>
         <ContactForm onSubmit={this.heandleSubmitForm} />
-
-        <h2>Contacts</h2>
+        <AppContactsListTitle>Contacts</AppContactsListTitle>
         <Filter
           filter={this.state.filter}
           onFilterContact={this.onFilterContact}
@@ -67,7 +67,7 @@ export class App extends Component {
           contacts={visibleContacts}
           onDelContact={this.onDelContact}
         />
-      </div>
+      </Container>
     );
   }
 }
