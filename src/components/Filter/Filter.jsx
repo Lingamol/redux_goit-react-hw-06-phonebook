@@ -16,6 +16,7 @@ const Filter = ({ filter, onFilterContact, FilterWrapper }) => {
   );
 };
 export default Filter;
+
 Filter.propTypes = {
   filter: PropTypes.string.isRequired,
   onFilterContact: PropTypes.func.isRequired,
