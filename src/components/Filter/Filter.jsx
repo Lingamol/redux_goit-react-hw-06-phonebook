@@ -1,4 +1,5 @@
-const FindContactByName = ({ filter, onFilterContact }) => {
+import PropTypes from 'prop-types';
+const Filter = ({ filter, onFilterContact }) => {
   return (
     <label>
       Find contacts by name
@@ -13,4 +14,8 @@ const FindContactByName = ({ filter, onFilterContact }) => {
     </label>
   );
 };
-export default FindContactByName;
+export default Filter;
+Filter.propTypes = {
+  filter: PropTypes.string.isRequired,
+  onFilterContact: PropTypes.func.isRequired,
+};

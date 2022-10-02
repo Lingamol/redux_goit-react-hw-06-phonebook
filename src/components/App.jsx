@@ -2,7 +2,7 @@
 import { Component } from 'react';
 import ContactForm from './ContactForm/ContactForm';
 import ContactList from './ContactList';
-import FindContactByName from './Filter';
+import Filter from './Filter';
 import { nanoid } from 'nanoid';
 
 export class App extends Component {
@@ -22,11 +22,6 @@ export class App extends Component {
     }));
   };
   onFilterContact = event => {
-    // this.setState(prevState => ({
-    //   contacts: prevState.contacts.filter(contact =>
-    //     contact.name.toLowerCase().includes(name.toLowerCase())
-    //   ),
-    // }));
     this.setState({ filter: event.currentTarget.value });
   };
 
@@ -48,21 +43,7 @@ export class App extends Component {
       }));
     }
   };
-  // handleInputChange = event => {
-  //   const { name, value } = event.currentTarget;
-  //   this.setState({
-  //     [name]: value,
-  //   });
-  // };
-  // handleSubmit = event => {
-  //   event.preventDefault();
-  //   console.log('name:', this.state.name);
-  //   console.log('number:', this.state.number);
-  //   // const { name, value } = event.currentTarget;
-  //   // this.setState({
-  //   //   [name]: value,
-  //   // });
-  // };
+
   getVisibleContacts = () => {
     const { filter, contacts } = this.state;
     const normalizedFilter = filter.toLocaleLowerCase();
@@ -78,7 +59,7 @@ export class App extends Component {
         <ContactForm onSubmit={this.heandleSubmitForm} />
 
         <h2>Contacts</h2>
-        <FindContactByName
+        <Filter
           filter={this.state.filter}
           onFilterContact={this.onFilterContact}
         />
