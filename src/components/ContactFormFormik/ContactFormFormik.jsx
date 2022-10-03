@@ -60,6 +60,7 @@ class ContactFormFormik extends Component {
       )
       .required(),
   });
+
   render() {
     return (
       <Formik
