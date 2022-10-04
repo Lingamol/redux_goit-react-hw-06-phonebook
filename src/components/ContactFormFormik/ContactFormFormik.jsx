@@ -69,7 +69,7 @@ class ContactFormFormik extends Component {
         onSubmit={this.handleOnSubmit}
       >
         <FormContact>
-          <FormInputLabel l htmlFor={this.nameInpuId}>
+          <FormInputLabel htmlFor={this.nameInpuId}>
             Name
             <FormInput type="text" name="name" placeholder="Enter name" />
             <ErrorMessage name="name" component={FormErrorMessage} />
