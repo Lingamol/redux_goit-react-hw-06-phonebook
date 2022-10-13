@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { FilterInputLabel, FilterInput } from './Filter.Styled';
-const Filter = ({ filter, onFilterContact, FilterWrapper }) => {
+const Filter = ({ filter, onFilterContact }) => {
   return (
     <FilterInputLabel>
       Find contacts by name

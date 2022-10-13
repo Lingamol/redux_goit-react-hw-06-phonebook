@@ -1,31 +1,34 @@
 // import { propTypes } from 'prop-types';
-import { Component } from 'react';
+// import { Component } from 'react';
+import { useState, useEffect } from 'react';
 // import ContactForm from './ContactForm';
 import ContactList from './ContactList';
 import Filter from './Filter';
 import { nanoid } from 'nanoid';
 import { Container, AppTitle, AppContactsListTitle } from './App.styled';
 import ContactFormFormik from './ContactFormFormik';
-// import InitialContacts from '../js/InitialContacts.js';
-export class App extends Component {
-  state = {
-    contacts: [],
-    filter: '',
+// import InitialContacts from '../js/InitialContacts.js';1
+// let initialContacts = [];
+export const App = () => {
+  const [contacts, setContacts] = useState(() => {
+    const contactsLocal = localStorage.getItem('contacts');
+    if (contactsLocal) return JSON.parse(contactsLocal);
+    else return [];
+  });
+  const [filterName, setFilterName] = useState('');
+
+  const onDelContact = id => {
+    setContacts(prevState => prevState.filter(contact => contact.id !== id));
   };
 
-  onDelContact = id => {
-    this.setState(prevState => ({
-      contacts: prevState.contacts.filter(contact => contact.id !== id),
-    }));
-  };
-  onFilterContact = event => {
-    this.setState({ filter: event.currentTarget.value });
+  const onFilterContact = event => {
+    setFilterName(event.currentTarget.value);
   };
 
-  heandleSubmitForm = data => {
-    console.log(data);
+  const heandleSubmitForm = data => {
+    // console.log(data);
     if (
-      this.state.contacts.find(
+      contacts.find(
         contact =>
           contact.name.toLocaleLowerCase() === data.name.toLocaleLowerCase()
       )
@@ -34,59 +37,33 @@ export class App extends Component {
     else {
       const newId = nanoid();
       const newContact = { id: newId, ...data };
-      console.log(data);
-      this.setState(prevState => ({
-        contacts: [newContact, ...prevState.contacts],
-      }));
+      // console.log(data);
+      setContacts(prevState => [newContact, ...prevState]);
     }
   };
 
-  getVisibleContacts = () => {
-    const { filter, contacts } = this.state;
-    const normalizedFilter = filter.toLocaleLowerCase();
-    return contacts.filter(contact =>
+  const getVisibleContacts = () => {
+    const normalizedFilter = filterName.toLocaleLowerCase();
+    const visibleContacts = contacts.filter(contact =>
       contact.name.toLowerCase().includes(normalizedFilter)
     );
+    return visibleContacts ? visibleContacts : [];
   };
 
-  componentDidMount() {
-    // console.log('componentDidMount');
-    const contacts = localStorage.getItem('contacts');
-    const parsedContacts = JSON.parse(contacts);
-    // console.log(parsedContacts);
-    if (parsedContacts) {
-      this.setState({ contacts: parsedContacts });
-    }
-  }
-  componentDidUpdate(prevProps, prevState) {
-    // console.log('componentDidUpdate');
-    // console.log('precState', prevState);
-    // console.log('State', this.state);
-    // console.log('precProps', prevProps);
-    if (this.state.contacts !== prevState.contacts) {
-      // console.log('contacts updates');
-      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
-    }
-  }
+  useEffect(() => {
+    localStorage.setItem('contacts', JSON.stringify(contacts));
+  }, [contacts]);
 
-  render() {
-    const visibleContacts = this.getVisibleContacts();
-    console.log('App ernder');
-    return (
-      <Container>
-        <AppTitle>Phonebook</AppTitle>
-        {/* <ContactForm onSubmit={this.heandleSubmitForm} /> */}
-        <ContactFormFormik onSubmit={this.heandleSubmitForm} />
-        <AppContactsListTitle>Contacts</AppContactsListTitle>
-        <Filter
-          filter={this.state.filter}
-          onFilterContact={this.onFilterContact}
-        />
-        <ContactList
-          contacts={visibleContacts}
-          onDelContact={this.onDelContact}
-        />
-      </Container>
-    );
-  }
-}
+  const visibleContacts = getVisibleContacts();
+
+  return (
+    <Container>
+      <AppTitle>Phonebook</AppTitle>
+      {/* <ContactForm onSubmit={heandleSubmitForm} /> */}
+      <ContactFormFormik onSubmit={heandleSubmitForm} />
+      <AppContactsListTitle>Contacts</AppContactsListTitle>
+      <Filter filter={filterName} onFilterContact={onFilterContact} />
+      <ContactList contacts={visibleContacts} onDelContact={onDelContact} />
+    </Container>
+  );
+};
