@@ -10,6 +10,7 @@ import ContactFormFormik from './ContactFormFormik';
 // import InitialContacts from '../js/InitialContacts.js';1
 // let initialContacts = [];
 import useLocalStorage from 'hooks/useLocalStorage';
+// import { useMemo } from 'react';
 
 export const App = () => {
   const [contacts, setContacts] = useLocalStorage('contacts', []);
@@ -40,15 +41,21 @@ export const App = () => {
     }
   };
 
-  const getVisibleContacts = () => {
+  // const visibleContacts = useMemo(() => {
+  //   const normalizedFilter = filterName.toLocaleLowerCase();
+  //   const visibleContacts = contacts.filter(contact =>
+  //     contact.name.toLowerCase().includes(normalizedFilter)
+  //   );
+  //   return visibleContacts ? visibleContacts : [];
+  // }, [contacts, filterName]);
+
+  const visibleContacts = () => {
     const normalizedFilter = filterName.toLocaleLowerCase();
     const visibleContacts = contacts.filter(contact =>
       contact.name.toLowerCase().includes(normalizedFilter)
     );
     return visibleContacts ? visibleContacts : [];
   };
-
-  const visibleContacts = getVisibleContacts();
 
   return (
     <Container>
@@ -57,7 +64,7 @@ export const App = () => {
       <ContactFormFormik onSubmit={heandleSubmitForm} />
       <AppContactsListTitle>Contacts</AppContactsListTitle>
       <Filter filter={filterName} onFilterContact={onFilterContact} />
-      <ContactList contacts={visibleContacts} onDelContact={onDelContact} />
+      <ContactList contacts={visibleContacts()} onDelContact={onDelContact} />
     </Container>
   );
 };
