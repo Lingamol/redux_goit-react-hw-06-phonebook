@@ -9,12 +9,17 @@ import { Container, AppTitle, AppContactsListTitle } from './App.styled';
 import ContactFormFormik from './ContactFormFormik';
 // import InitialContacts from '../js/InitialContacts.js';1
 // let initialContacts = [];
-export const App = () => {
-  const [contacts, setContacts] = useState(() => {
-    const contactsLocal = localStorage.getItem('contacts');
-    if (contactsLocal) return JSON.parse(contactsLocal);
-    else return [];
+const useLocalStorage = (key, defaultValue) => {
+  const [state, setstate] = useState(() => {
+    return JSON.parse(window.localStorage.getItem(key)) ?? defaultValue;
   });
+  useEffect(() => {
+    window.localStorage.setItem(key, JSON.stringify(state));
+  }, [state, key]);
+  return [state, setstate];
+};
+export const App = () => {
+  const [contacts, setContacts] = useLocalStorage('contacts', []);
   const [filterName, setFilterName] = useState('');
 
   const onDelContact = id => {
@@ -49,10 +54,6 @@ export const App = () => {
     );
     return visibleContacts ? visibleContacts : [];
   };
-
-  useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
 
   const visibleContacts = getVisibleContacts();
 
