@@ -49,22 +49,22 @@ export const App = () => {
   //   return visibleContacts ? visibleContacts : [];
   // }, [contacts, filterName]);
 
-  const visibleContacts = () => {
-    const normalizedFilter = filterName.toLocaleLowerCase();
-    const visibleContacts = contacts.filter(contact =>
-      contact.name.toLowerCase().includes(normalizedFilter)
-    );
-    return visibleContacts ? visibleContacts : [];
-  };
+  // const visibleContacts = () => {
+  //   const normalizedFilter = filterName.toLocaleLowerCase();
+  //   const visibleContacts = contacts.filter(contact =>
+  //     contact.name.toLowerCase().includes(normalizedFilter)
+  //   );
+  //   return visibleContacts ? visibleContacts : [];
+  // };
 
   return (
     <Container>
       <AppTitle>Phonebook</AppTitle>
       {/* <ContactForm onSubmit={heandleSubmitForm} /> */}
-      <ContactFormFormik onSubmit={heandleSubmitForm} />
+      {/* <ContactFormFormik onSubmit={heandleSubmitForm} /> */}
       <AppContactsListTitle>Contacts</AppContactsListTitle>
-      <Filter filter={filterName} onFilterContact={onFilterContact} />
-      <ContactList contacts={visibleContacts()} onDelContact={onDelContact} />
+      {/* <Filter filter={filterName} onFilterContact={onFilterContact} /> */}
+      <ContactList onDelContact={onDelContact} />
     </Container>
   );
 };

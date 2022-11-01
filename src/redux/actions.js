@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid';
-export const addTask = text => {
+export const addContact = text => {
   return {
-    type: 'tasks/addTask',
+    type: 'contacts/addContact',
     payload: {
       id: nanoid(),
       completed: false,
@@ -9,21 +9,21 @@ export const addTask = text => {
     },
   };
 };
-export const deleteTask = taskId => {
+export const deleteContact = contactId => {
   return {
-    type: 'tasks/deleteTask',
-    payload: taskId,
+    type: 'contacts/deleteContact',
+    payload: contactId,
   };
 };
-export const toggleCompleted = taskId => {
+// export const toggleCompleted = taskId => {
+//   return {
+//     type: 'tasks/toggleCompleted',
+//     payload: taskId,
+//   };
+// };
+export const setFilter = value => {
   return {
-    type: 'tasks/toggleCompleted',
-    payload: taskId,
-  };
-};
-export const setStatusFilter = value => {
-  return {
-    type: 'filters/setStatusFilter',
+    type: 'filters/setFilter',
     payload: value,
   };
 };
