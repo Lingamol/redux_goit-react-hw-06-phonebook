@@ -1,11 +1,11 @@
 import { nanoid } from 'nanoid';
-export const addContact = text => {
+export const addContact = ({ name, number }) => {
   return {
     type: 'contacts/addContact',
     payload: {
       id: nanoid(),
-      completed: false,
-      text,
+      name,
+      number,
     },
   };
 };

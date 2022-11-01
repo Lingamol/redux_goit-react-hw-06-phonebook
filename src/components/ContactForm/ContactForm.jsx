@@ -40,7 +40,7 @@ const ContactForm = ({ onSubmit }) => {
 
   return (
     <FormContact onSubmit={event => handleSubmit(event)}>
-      <FormInputLabel l htmlFor={nameInpuId}>
+      <FormInputLabel htmlFor={nameInpuId}>
         Name
         <FormInput
           onChange={event => handleInputChange(event)}

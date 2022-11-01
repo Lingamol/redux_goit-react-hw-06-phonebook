@@ -23,7 +23,7 @@ const ContactList = () => {
   const dispatch = useDispatch();
 
   const visibleContacts = getVisibleContacts(contacts, filter);
-  console.log('visibleContacts', visibleContacts);
+  // console.log('visibleContacts', visibleContacts);
   const handleDeleteContact = contactId => dispatch(deleteContact(contactId));
 
   return (

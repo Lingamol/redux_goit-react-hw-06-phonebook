@@ -32,7 +32,7 @@ const filtersInitialState = {
 // Теперь значением параметра state будет объект фильтров
 const filtersReducer = (state = filtersInitialState, action) => {
   switch (action.type) {
-    case 'filters/setStatusFilter':
+    case 'filters/setFilter':
       return {
         ...state,
         filter: action.payload,
