@@ -1,6 +1,7 @@
 // import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteContact } from 'redux/actions';
+import { getContacts, getFilter } from 'redux/selectors';
 import {
   ListItemText,
   ListItem,
@@ -17,9 +18,9 @@ const getVisibleContacts = (contacts, filterContact) => {
 };
 
 const ContactList = () => {
-  const contacts = useSelector(state => state.contacts);
+  const contacts = useSelector(getContacts);
 
-  const filter = useSelector(state => state.filters.filter);
+  const filter = useSelector(getFilter);
   const dispatch = useDispatch();
 
   const visibleContacts = getVisibleContacts(contacts, filter);

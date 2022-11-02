@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'redux/actions';
 import { Formik, ErrorMessage } from 'formik';
+import { getContacts } from 'redux/selectors';
 import shortid from 'shortid';
 import * as yup from 'yup';
 import {
@@ -15,7 +16,7 @@ const ContactFormFormik = () => {
   const nameInpuId = shortid.generate();
   const numberInputId = shortid.generate();
   const initialValues = { name: '', number: '' };
-  const contacts = useSelector(state => state.contacts);
+  const contacts = useSelector(getContacts);
   const dispatch = useDispatch();
 
   const handleOnSubmit = (values, { resetForm }) => {
